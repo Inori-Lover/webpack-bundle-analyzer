@@ -3,6 +3,7 @@
 const gulp = require('gulp');
 
 const NODE_SRC = './src/**/*.js';
+const CLIENT_SRC = './client/**/*';
 const NODE_DEST = './lib';
 
 const cli = require('commander')
@@ -33,6 +34,10 @@ class TaskError extends Error {
 function watch() {
   gulp
     .watch(NODE_SRC, gulp.series(cleanNodeScripts, compileNodeScripts))
+    // TODO: replace with `emitErrors: false` option after https://github.com/gulpjs/glob-watcher/pull/34 will be merged
+    .on('error', () => {});
+  gulp
+    .watch(CLIENT_SRC, gulp.series(cleanViewerScripts, compileViewerScripts))
     // TODO: replace with `emitErrors: false` option after https://github.com/gulpjs/glob-watcher/pull/34 will be merged
     .on('error', () => {});
 }

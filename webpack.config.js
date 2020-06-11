@@ -125,7 +125,9 @@ module.exports = opts => {
         if (opts.analyze) {
           plugins.push(
             new BundleAnalyzePlugin({
-              generateStatsFile: true
+              generateStatsFile: true,
+              analyzerMode: 'static',
+              openAnalyzer: false
             })
           );
         }
